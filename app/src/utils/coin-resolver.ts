@@ -1,6 +1,10 @@
 import { Cluster, clusterApiUrl } from "@solana/web3.js";
 import { address } from "@twamm/client.js";
-import { ClusterApiUrl as clusterUrl } from "../env";
+import {
+  ClusterApiUrl as clusterUrl,
+  NEXT_PUBLIC_CUSTOM_DEV_COIN,
+  NEXT_PUBLIC_CUSTOM_TST_COIN,
+} from "../env";
 
 const TARGET_NS: Cluster = "mainnet-beta"; // would be used to check the coin mint against
 const TESTNET_NS = "testnet";
@@ -41,11 +45,13 @@ export const resolveCoinAddress = (
     address.NATIVE_TOKEN_ADDRESS,
     "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
     "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",
+    "3NZ9JMVBmGAqocybic2c7LQCJScmgsAZ6vQqTDzcqmJh",
   ];
 
   const wSOL = origin[0];
   const USDC = origin[1];
   const USDT = origin[2];
+  const CUST = origin[3];
 
   /// Store addresses 4 common tokens to be functional at the testnet & devnet
   const testnet = new Map([
@@ -54,11 +60,19 @@ export const resolveCoinAddress = (
     [USDT, "ASpA3U8G2qHnyo6ag1jwtpZNj9E2MymbVDq6twi3ZvRN"],
   ]);
 
+  if (NEXT_PUBLIC_CUSTOM_TST_COIN) {
+    testnet.set(CUST, NEXT_PUBLIC_CUSTOM_TST_COIN);
+  }
+
   const devnet = new Map([
     [wSOL, address.NATIVE_TOKEN_ADDRESS],
     [USDC, "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU"],
     [USDT, "EJwZgeZrdC8TXTQbQBoL6bfuAnFUUy1PVCMB4DYPzVaS"],
   ]);
+
+  if (NEXT_PUBLIC_CUSTOM_DEV_COIN) {
+    devnet.set(CUST, NEXT_PUBLIC_CUSTOM_DEV_COIN);
+  }
 
   if (origin.includes(coin)) {
     let result;

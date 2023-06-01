@@ -13,6 +13,12 @@ export const JUPITER_PRICE_ENDPOINT_V1 = "https://price.jup.ag/v1/price";
 export const NEXT_PUBLIC_ENABLE_TX_SIMUL =
   process.env.NEXT_PUBLIC_ENABLE_TX_SIMUL || "";
 
+export const NEXT_PUBLIC_CUSTOM_DEV_COIN =
+  process.env.NEXT_PUBLIC_CUSTOM_DEV_COIN || "";
+
+export const NEXT_PUBLIC_CUSTOM_TST_COIN =
+  process.env.NEXT_PUBLIC_CUSTOM_TST_COIN || "";
+
 const mainTradePair = process.env.NEXT_PUBLIC_MAIN_TRADE_PAIR;
 if (!mainTradePair) throw new Error("MAIN_TRADE_PAIR is not set");
 export const NEXT_PUBLIC_MAIN_TRADE_PAIR = mainTradePair;

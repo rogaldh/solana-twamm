@@ -64,6 +64,7 @@ export default (_: void, options = {}) => {
             p.configB.mint.toBase58(),
           ])
       );
+
       return [
         ...new Set(
           pairAddresses.concat(twammClient.address.NATIVE_TOKEN_ADDRESS)
