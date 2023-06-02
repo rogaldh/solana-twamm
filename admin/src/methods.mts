@@ -73,7 +73,7 @@ const cancelOrder = async (
   ).address;
 
   const accounts = {
-    payer: owner,
+    payer: signer.publicKey,
     owner: owner,
     userAccountTokenA,
     userAccountTokenB,
