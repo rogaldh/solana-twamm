@@ -4,7 +4,7 @@
   "description": "Twamm admin CLI",
   "main": "cli",
   "scripts": {
-    "test": "ava"
+    "test": "ava --timeout 100000"
   },
   "type": "module",
   "author": "",

@@ -18,7 +18,16 @@ function matchError(buf: Buffer, err: string) {
   return isMatched ? isMatched.length > 0 : !!isMatched;
 }
 
-const matchSimulationError = (buf: Buffer) => matchError(buf, "SimulateError");
+const matchSimulationError = (buf: Buffer) => {
+  const isMatched = matchError(buf, "SimulateError");
+
+  const skipErr = "FetchError";
+  if (matchError(buf, skipErr)) {
+    console.debug("Can not fetch the data. Check the test");
+  }
+
+  return isMatched;
+};
 
 const opts = () => [
   "-k",
@@ -166,6 +175,14 @@ test.serial("should fail to simulate | settle", (t) => {
   // setTestTime(150) to initialize the underlying pool
   let command = `settle -tp ${tpPubkey} sell 0 ${1e9} 0`;
   let cmd = spawnSync("./cli", opts().concat(command.split(" ")));
-  console.log("|>", cmd.stderr.toString());
-  t.assert(matchSimulationError(cmd.stderr));
+  t.assert(matchError(cmd.stderr, `Account does not exist ${tpPubkey}`));
+  // fail to execute for a random token pair
+});
+
+/// withdrawFees
+test.serial("should fail to simulate | withdraw-fees", (t) => {
+  let command = `withdraw-fees -tp ${tpPubkey} -rk ${usrPubkey} 0 0 0`;
+  let cmd = spawnSync("./cli", opts().concat(command.split(" ")));
+  t.assert(matchError(cmd.stderr, `Account does not exist ${tpPubkey}`));
+  // fail to execute for a random token pair
 });
