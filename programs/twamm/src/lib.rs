@@ -19,7 +19,7 @@ solana_security_txt::security_txt! {
     auditors: ""
 }
 
-declare_id!("TWAMdUxafgDN2BJNFaC6pND63tjdLz4AmEKBzuxtbe9");
+declare_id!("DWJvBEFbQR8prGoqsCmh4mDXLHkYKP9BZxUTTYCk2oLs");
 
 pub mod jupiter {
     solana_program::declare_id!("JUP3c2Uh3WA4Ng34tw6kPd2G4C5BB21Xo36Je1s32Ph");
